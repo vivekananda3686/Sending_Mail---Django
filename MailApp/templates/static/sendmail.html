@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <link rel="icon" src="{% static 'images/mail.jpeg' %}"/> -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"/>
+        <script rel="stylesheet" type="text/javascript" src="{% static 'jquery/sample.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="card mx-auto col-md-5 shadow-lg">
+                {% if messages %}
+                    {% for i in messages %}
+                        {% if i.tags == "error" %}
+                        <div class="alert alert-danger alert-dismissible my-2">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{i}}
+                        </div>
+                        {% else %}
+                        <div class="alert alert-{{i.tags}} alert-dismissible my-2">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{i}}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="bg-info text-light text-center p-3">Sending Mail</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Enter Email" name="em" class="form-control my-2"/>
+                        <input type="text" placeholder="Enter Subject" name="sb" class="form-control my-2"/>
+                        <textarea type="text" placeholder="Enter Message" name="mg" rows="3" class="form-control my-2"></textarea>
+                        <input type="submit" value="Send Mail" class="form-control my-2 btn btn-block btn-outline-success"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
